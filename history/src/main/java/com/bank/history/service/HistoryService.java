@@ -5,11 +5,11 @@ import com.bank.history.model.entity.History;
 import java.util.List;
 
 public interface HistoryService {
-    History saveHistory(History history);
+    HistoryDto saveHistory(HistoryDto history);
 
     List<History> getAllHistories();
 
-    HistoryDto getHistoryById(Long id);
+    History getHistoryById(Long id);
 
     void deleteHistoryById(Long id);
 }

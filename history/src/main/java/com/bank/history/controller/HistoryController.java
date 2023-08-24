@@ -28,45 +28,36 @@ public class HistoryController  {
         this.historyService = historyService;
 
     }
-//    @PostMapping("/create")
-//    public ResponseEntity<HistoryDto> createHistory(@RequestBody HistoryDto historyDto) {
-//        History history = HistoryMapper.INSTANCE.hitoryDtoToHistory(historyDto);
-//        History savedHistory = historyService.saveHistory(history);
-//        HistoryDto savedHistoryDto = HistoryMapper.INSTANCE.hitoryToHistoryDto(savedHistory);
-//        return ResponseEntity.ok(savedHistoryDto);
-//    }
-//
-//    @GetMapping("/getAll")
-//    public ResponseEntity<List<HistoryDto>> getAllHistories() {
-//        List<History> histories = historyService.getAllHistories();
-//        List<HistoryDto> historyDtos = histories.stream()
-//                .map(HistoryMapper.INSTANCE::hitoryToHistoryDto)
-//                .collect(Collectors.toList());
-//        return ResponseEntity.ok(historyDtos);
-//    }
-
-//    @GetMapping("/{id}")
-//    public ResponseEntity<HistoryDto> getHistoryById(@PathVariable Long id) {
-//        History history = historyService.getHistoryById(id);
-//        if (history != null) {
-//            HistoryDto historyDto = HistoryMapper.INSTANCE.hitoryToHistoryDto(history);
-//            return ResponseEntity.ok(historyDto);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-    @GetMapping("/{id}")
-    public ResponseEntity<HistoryDto> getHistoryById(@PathVariable Long id) {
-        return new ResponseEntity<>(historyService.getHistoryById(id), HttpStatus.OK);
+    @PostMapping("/create")
+    public ResponseEntity<HistoryDto> createHistory(@RequestBody HistoryDto historyDto) {
+        return ResponseEntity.ok(historyService.saveHistory(historyDto));
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<List<HistoryDto>> getAllHistories() {
+        List<History> histories = historyService.getAllHistories();
+        List<HistoryDto> historyDtos = histories.stream()
+                .map(HistoryMapper.INSTANCE::mapToDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(historyDtos);
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<HistoryDto> getHistoryById(@PathVariable Long id) {
+        History history = historyService.getHistoryById(id);
+        if (history != null) {
+            HistoryDto historyDto = HistoryMapper.INSTANCE.mapToDto(history);
+            return ResponseEntity.ok(historyDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deleteHistoryById(@PathVariable Long id) {
-//        historyService.deleteHistoryById(id);
-//        return ResponseEntity.noContent().build();
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteHistoryById(@PathVariable Long id) {
+        historyService.deleteHistoryById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
 
 

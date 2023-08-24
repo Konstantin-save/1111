@@ -18,7 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "history")
+@Table(name = "history",schema = "history")
 @Getter
 @Setter
 @RequiredArgsConstructor

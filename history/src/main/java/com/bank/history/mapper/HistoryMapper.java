@@ -11,9 +11,14 @@ import java.util.Optional;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface HistoryMapper {
-    HistoryMapper INSTANCE = Mappers.getMapper(HistoryMapper.class); // Преобразование в объект HistoryDto
+    HistoryMapper INSTANCE = Mappers.getMapper(HistoryMapper.class);
+
     History mapToEntity(HistoryDto historyDto);
+    HistoryDto mapToDto(History history); // Метод для преобразования History в HistoryDto
+
     HistoryDto mapToDto(Optional<History> history);
+}
+
 
 
 
@@ -33,4 +38,4 @@ public interface HistoryMapper {
 //    @Mapping(target = "authorizationAuditId", source = "authorizationAuditId")
 //    History hitoryDtoToHistory(HistoryDto historyDto);
 
-}
+//}
